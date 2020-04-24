@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+body {
+    font-family: 'Kanit', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1 0 auto;
+}
+
+.input-field input[type=text]:focus + label {
+    color: #000;
+}
+
+#m3u-link {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    padding: 0.3em;
+}
+
+.alive {
+    color: green;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dead {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}

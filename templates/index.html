@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="center-align">ยินดีต้อนรับ</h1>
+<div class="card white">
+    <div class="card-content">
+        <span class="card-title center-align">ลิงค์ m3u</span>
+        <p id="m3u-link" >{{ m3u_link }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="center-align">ช่อง</th>
+                <th class="center-align">หมวดหมู่</th>
+                <th class="center-align">Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="center-align"><img src="https://via.placeholder.com/32" alt=""></td>
+                <td>Channel 1 · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
+                <td class="center-align">FREE TV</td>
+                <td class="alive">Alive</td>
+            </tr>
+            <tr>
+                <td class="center-align"><img src="https://via.placeholder.com/32" alt=""></td>
+                <td>Channel 2 · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
+                <td class="center-align">MOVIES</td>
+                <td class="dead">Dead</td>
+            </tr>
+            <tr>
+                <td class="center-align"><img src="https://via.placeholder.com/32" alt=""></td>
+                <td>Channel 3 · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
+                <td class="center-align">MOVIES</td>
+                <td class="alive">Alive</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
