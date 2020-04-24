@@ -15,30 +15,19 @@
             <tr>
                 <th></th>
                 <th class="center-align">ช่อง</th>
-                <th class="center-align">หมวดหมู่</th>
                 <th class="center-align">Status</th>
             </tr>
         </thead>
 
         <tbody>
+            {% for ch in channels %}
             <tr>
-                <td class="center-align"><img src="https://via.placeholder.com/32" alt=""></td>
-                <td>Channel 1 · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
-                <td class="center-align">FREE TV</td>
-                <td class="alive">Alive</td>
+                <td class="center-align"><img class="ch-logo" src="{{ch.logo}}" alt=""></td>
+                <td>{{ch.channel}} · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
+                <td class="alive">{{ch.status}}</td>
             </tr>
-            <tr>
-                <td class="center-align"><img src="https://via.placeholder.com/32" alt=""></td>
-                <td>Channel 2 · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
-                <td class="center-align">MOVIES</td>
-                <td class="dead">Dead</td>
-            </tr>
-            <tr>
-                <td class="center-align"><img src="https://via.placeholder.com/32" alt=""></td>
-                <td>Channel 3 · <a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt red-text"></i></a></td>
-                <td class="center-align">MOVIES</td>
-                <td class="alive">Alive</td>
-            </tr>
+            
+            {% endfor %}
         </tbody>
     </table>
 </div>
