@@ -22,5 +22,13 @@ class Channel(db.Model):
 def index():
     m3u_link = "https://raw.githubusercontent.com/3xbun/WLSIL-Website/master/iptv"
 
-    channels = Channel.query.all()
+    channels = Channel.query.order_by(Channel.channel).all()
     return render_template('index.html', m3u_link=m3u_link, channels=channels)
+
+@app.route('/delete/<id>')
+def delete(id):
+    channel = Channel.query.get(id)
+    db.session.delete(channel)
+    db.session.commit()
+
+    return redirect(url_for('index'))
