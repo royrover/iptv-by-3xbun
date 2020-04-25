@@ -1,8 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from pythainlp.util import thai_strftime
 
 app = Flask(__name__)
+app.jinja_env.globals['thai_strftime'] = thai_strftime
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///channel.db'
 db = SQLAlchemy(app)
 
@@ -12,7 +14,7 @@ class Channel(db.Model):
     url = db.Column(db.Text, nullable=False)
     logo = db.Column(db.Text)
     status = db.Column(db.String(4), nullable=False, default='Alive')
-    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def __repr__(self):
         return '<Channel {}: {}>'.format(self.id, self.channel)
@@ -47,8 +49,34 @@ def update(id):
     ch.logo = request.form['logo']
     if request.form.get('status') == None: ch.status = 'Dead'
     else: ch.status = 'Alive'
-    ch.date_created = datetime.utcnow()
+    ch.date_created = datetime.now()
 
     db.session.commit()
 
+    with open('iptv-by-3xbun', "w") as test:
+
+        channels = Channel.query.all()
+        for ch in channels:
+            test.write('#EXTINF:-1 tvg-logo="{}", {}\n' .format(ch.logo, ch.channel))
+            test.write('{}\n' .format(ch.url))
+
+
     return redirect(url_for('edit', id=ch.id))
+
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    if request.method == "POST":
+        channel = request.form['channel']
+        url = request.form['url']
+        logo = request.form['logo']
+        
+        if request.form.get('status') == None: status = 'Dead'
+        else: status = 'Alive'
+
+        ch = Channel(channel=channel, url=url, logo=logo)
+        db.session.add(ch)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
+    return render_template('add.html')

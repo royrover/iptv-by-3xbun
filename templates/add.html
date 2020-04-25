@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container center-align">
+    <h1>เพิ่มช่อง</h1>
+    <hr>
+    <br>
+    <div class="container">
+        <img class="ch-logo center-align" id="preview-logo" src=""> 
+        <div class="card">
+            <form action="/add" method="POST">
+                <div class="card-content">
+                    <span class="card-title">
+                        ชื่อช่อง: <input value="" name="channel" id="channel" type="text">
+                    </span>
+                
+                    ลิงค์ m3u: <input value="" name="url" id="url" type="text"> <br>
+                    ไอคอนช่อง: <input value="" name="logo" id="logo" type="text" onchange="updateImage()"> <br>
+                    <div class="switch">
+                        <label>
+                            <span class="dead">Dead</span>
+                            <input id="status" type="checkbox" name="status" checked>
+                            <span class="lever"></span>
+                            <span class="alive">Alive</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <input type="submit" class="btn light-blue darken-3" value="บันทึก">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<script>
+    function updateImage() {
+        const img = document.getElementById('preview-logo');
+        const img_url = document.getElementById("logo").value
+        img.src = img_url
+        console.log(img);
+    }
+</script>
+{% endblock %}
+
