@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container center-align">
+    <h1>แก้ไขช่อง</h1>
+    <hr>
+    <br>
+    <div class="container">
+        <img class="ch-logo center-align" src="{{ch.logo}}" alt=""> 
+        <div class="card">
+            <form action="/update/{{ch.id}}" method="POST">
+                <div class="card-content">
+                    <span class="card-title">
+                        ชื่อช่อง: <input value="{{ ch.channel }}" name="channel" id="channel" type="text">
+                    </span>
+                
+                    ลิงค์ m3u: <input value="{{ ch.url }}" name="url" id="url" type="text"> <br>
+                    ไอคอนช่อง: <input value="{{ ch.logo }}" name="logo" id="logo" type="text"> <br>
+                    <div class="switch">
+                        <label>
+                            <span class="dead">Dead</span>
+                            {% if ch.status == 'Alive' %}
+                                <input id="status" type="checkbox" name="status" checked>
+                            {% else %}
+                                <input id="status" type="checkbox" name="status">
+                            {% endif %}
+                            <span class="lever"></span>
+                            <span class="alive">Alive</span>
+                        </label>
+                      </div>
+                    <span class="smaller-text">
+                        อัพเดทล่าสุด: {{ch.date_created.strftime('%Y/%m/%d - %H:%M')}}
+                    </span>
+                </div>
+                <div class="card-action">
+                    <input type="submit" class="btn light-blue darken-3" value="บันทึก">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+{% endblock %}

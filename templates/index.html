@@ -22,9 +22,13 @@
         <tbody>
             {% for ch in channels %}
             <tr>
-                <td class="center-align"><img class="ch-logo" src="{{ch.logo}}" alt=""></td>
-                <td>{{ch.channel}} · <a href="#"><i class="far fa-edit"></i></a> <a href="/delete/{{ch.id}}"><i class="far fa-trash-alt red-text"></i></a></td>
-                <td class="alive">{{ch.status}}</td>
+                <td class="center-align"><img class="ch-icon" src="{{ch.logo}}" alt=""></td>
+                <td>{{ch.channel}} · <a href="/edit/{{ch.id}}"><i class="far fa-edit"></i></a> <a href="/delete/{{ch.id}}"><i class="far fa-trash-alt red-text"></i></a></td>
+                {% if ch.status == 'Alive' %}
+                    <td class="alive">{{ch.status}}</td>
+                {% else %}
+                    <td class="dead">{{ch.status}}</td>
+                {% endif %}
             </tr>
             
             {% endfor %}

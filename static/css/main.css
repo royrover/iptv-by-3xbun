@@ -23,17 +23,42 @@ body {
 }
 
 .alive {
-    color: green;
+    color: #4caf50;
     text-align: center;
     font-weight: bold;
 }
 
 .dead {
-    color: red;
+    color: #f44336;
     text-align: center;
     font-weight: bold;
 }
 
-.ch-logo {
+.ch-icon {
     height: 32px;
+}
+
+.ch-logo {
+    height: 250px;
+}
+
+.smaller-text {
+    color: #9e9e9e;
+    font-size: .7em;
+}
+
+.switch label input[type=checkbox]:not(:checked)+.lever {
+    background-color: #b71c1c;
+}
+  
+.switch label input[type=checkbox]:not(:checked)+.lever:after {
+    background-color: #f44336;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #1b5e20;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #4caf50;
 }

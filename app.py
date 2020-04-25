@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -27,8 +27,28 @@ def index():
 
 @app.route('/delete/<id>')
 def delete(id):
-    channel = Channel.query.get(id)
+    channel = Channel.query.get_or_404(id)
     db.session.delete(channel)
     db.session.commit()
 
     return redirect(url_for('index'))
+
+@app.route('/edit/<id>')
+def edit(id):
+    ch = Channel.query.get_or_404(id)
+
+    return render_template('edit.html', ch=ch)
+
+@app.route('/update/<id>', methods=['GET', 'POST'])
+def update(id):
+    ch = Channel.query.get_or_404(id)
+    ch.channel = request.form['channel']
+    ch.url = request.form['url']
+    ch.logo = request.form['logo']
+    if request.form.get('status') == None: ch.status = 'Dead'
+    else: ch.status = 'Alive'
+    ch.date_created = datetime.utcnow()
+
+    db.session.commit()
+
+    return redirect(url_for('edit', id=ch.id))
