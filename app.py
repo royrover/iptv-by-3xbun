@@ -1,12 +1,15 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from datetime import datetime
 from pythainlp.util import thai_strftime
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.jinja_env.globals['thai_strftime'] = thai_strftime
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///channel.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///channel"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Channel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,8 +60,8 @@ def update(id):
 
         channels = Channel.query.all()
         for ch in channels:
-            test.write('#EXTINF:-1 tvg-logo="{}", {}\n' .format(ch.logo, ch.channel))
-            test.write('{}\n' .format(ch.url))
+            test.write('\n#EXTINF:-1 tvg-logo="{}", {}\n' .format(ch.logo, ch.channel))
+            test.write('{}' .format(ch.url))
 
 
     return redirect(url_for('edit', id=ch.id))
@@ -80,3 +83,10 @@ def add():
         return redirect(url_for('index'))
 
     return render_template('add.html')
+
+@app.route('/read')
+def read():
+    with open("iptv-by-3xbun", "r") as f:
+        content = f.read()
+
+    return content
